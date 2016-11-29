@@ -9,6 +9,11 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -qq bats
 
+
+install:
+  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g' | grep -o ...$ | xargs -L 2 > analysis1.txt
+  - cat analysis1.txt | while read first second rest ; do if [ ${first} -ne ${second} ; then exit 1 ; fi ; done
+  
 script:
   - bats tests/
 
