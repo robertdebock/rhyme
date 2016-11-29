@@ -10,10 +10,10 @@ before_install:
   - sudo apt-get install -qq bats
 
 install:
-  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g' | grep -o .$ | xargs -L 2 > analysis1.txt
-  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g' | grep -o ..$ | xargs -L 2 > analysis2.txt
-  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g' | grep -o ...$ | xargs -L 2 > analysis3.txt
-  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g' | grep -o ....$ | xargs -L 2 > analysis4.txt
+  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o .$ | xargs -L 2 > analysis1.txt
+  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ..$ | xargs -L 2 > analysis2.txt
+  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysis3.txt
+  - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysis4.txt
   
 script:
   - bats tests/
