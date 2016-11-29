@@ -1,0 +1,9 @@
+env:
+  global:
+    - RHYME=rhyme.txt
+
+script:
+  - bats tests/
+
+notifications:
+  email: false
