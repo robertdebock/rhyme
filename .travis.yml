@@ -10,15 +10,15 @@ before_install:
   - sudo apt-get install -qq bats
 
 install:
+  # Lowercase everything.
+  - cat ${RHYME} | tr '[A-Z]' '[a-z]' > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
+  # Change similar sounding letters, so they are comparable.
+  - cat phonetic-lut.txt | while read original replacement rest ; do sed -i "s/${original}/${replacement}/" ${RHYME} ; done
   # Prepare lists to analyse, containing just the last few characters of last word.
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o .$ | xargs -L 2 > analysis1.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ..$ | xargs -L 2 > analysis2.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysis3.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysis4.txt
-  # Lowercase everything.
-  - cat ${RHYME} | tr '[A-Z]' '[a-z]' > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
-  # Change similar sounding letters, so they are comparable.
-  - cat phonetic-lut.txt | while read original replacement rest ; do sed -i "s/${original}/${replacement}/" analysis*.txt ; done
   - cat analysis4.txt
 script:
   - bats tests/
