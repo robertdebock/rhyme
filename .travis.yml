@@ -28,6 +28,8 @@ install:
   - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysisnot4.txt
 
 script:
+  - echo "Testing the rhyme quality of ${RHYME}, which contains:"
+  - cat ${RHYME}
   - bats tests/
 
 notifications:
