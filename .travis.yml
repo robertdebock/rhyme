@@ -16,7 +16,7 @@ install:
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysis3.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysis4.txt
   # Change similar sounding letters, so they are comparable.
-  - cat phonetic-lut.txt | while read original replacement rest ; do sed "s/${original}/${replacement}/analysis*.txt ; done
+  - cat phonetic-lut.txt | while read original replacement rest ; do sed "s/${original}$/${replacement}/" analysis*.txt ; done
   
 script:
   - bats tests/
