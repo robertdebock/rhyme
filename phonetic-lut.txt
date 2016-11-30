@@ -1,5 +1,24 @@
 # A look-up-table of sounding-a-like letters that can be used to match cases like:
 # "rock" and "lok", or "up" and "sub".
+# It seems most logica to replace the original by a more simple version, like:
+# "ck -> k" and "kk -> k".
 eo oo
 ck k
 up ub
+bb b
+cc c
+dd d
+ff f
+gg g
+hh h
+kk k
+ll l
+mm m
+nn n
+pp p
+rr r
+ss s
+tt t
+vv v
+ww w
+zz z
