@@ -1,8 +1,3 @@
-@test "Does \$RHYME exist?" {
-  run test -f $RHYME
-  [ ${status} -eq 0 ]
-}
-
 @test "Check one letter rhyme." {
   cat analysis1.txt | while read first second rest ; do 
     [ "$first" = "$second" ]
