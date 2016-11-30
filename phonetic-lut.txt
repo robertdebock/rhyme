@@ -2,7 +2,7 @@
 # "rock" and "lok", or "up" and "sub".
 # It seems most logica to replace the original by a more simple version, like:
 # "ck -> k" and "kk -> k".
-eo oo
+oe oo
 ck k
 up ub
 bb b
