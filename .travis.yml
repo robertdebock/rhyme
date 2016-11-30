@@ -16,7 +16,7 @@ install:
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysis3.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysis4.txt
   # Lowercase everything.
-  - tr '[A-Z]' '[a-z]' ${RHYME} > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
+  - cat ${RHYME} | tr '[A-Z]' '[a-z]' > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
   # Change similar sounding letters, so they are comparable.
   - cat phonetic-lut.txt | while read original replacement rest ; do sed -i "s/${original}/${replacement}/" analysis*.txt ; done
   - cat analysis4.txt
