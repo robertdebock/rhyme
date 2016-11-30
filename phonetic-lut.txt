@@ -1,0 +1,5 @@
+# A look-up-table of sounding-a-like letters that can be used to match cases like:
+# "rock" and "lok", or "up" and "sub".
+eo oo
+ck k
+up ub
