@@ -3,6 +3,7 @@ language: bash
 env:
   global:
     - RHYME=rhyme.txt
+    - RHYMENOT=rhyme-not.txt
 
 before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
@@ -12,14 +13,20 @@ before_install:
 install:
   # Lowercase everything.
   - cat ${RHYME} | tr '[A-Z]' '[a-z]' > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
+  - cat ${RHYMENOT} | tr '[A-Z]' '[a-z]' > ${RHYMENOT}.lowercase && mv ${RHYMENOT}.lowercase ${RHYMENOT}
   # Change similar sounding letters, so they are comparable.
   - cat phonetic-lut.txt | while read original replacement rest ; do sed -i "s/${original}/${replacement}/" ${RHYME} ; done
+  - cat phonetic-lut.txt | while read original replacement rest ; do sed -i "s/${original}/${replacement}/" ${RHYMENOT} ; done
   # Prepare lists to analyse, containing just the last few characters of last word.
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o .$ | xargs -L 2 > analysis1.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ..$ | xargs -L 2 > analysis2.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysis3.txt
   - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysis4.txt
-  - cat analysis4.txt
+  - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o .$ | xargs -L 2 > analysisnot1.txt
+  - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ..$ | xargs -L 2 > analysisnot2.txt
+  - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysisnot3.txt
+  - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysisnot4.txt
+
 script:
   - bats tests/
 
