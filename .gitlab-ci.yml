@@ -1,0 +1,50 @@
+variables:
+  RHYME: "rhyme.txt"
+  RHYMENOT: "rhyme-not.txt"
+
+stages:
+  - lowercase
+  - phonetic
+  - prepare
+  - test
+
+rhyme:
+  stage: lowercase
+  script:
+    - cat ${RHYME} | tr '[A-Z]' '[a-z]' > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
+
+rhymenot:
+  stage: lowercase
+  script:
+    - cat ${RHYMENOT} | tr '[A-Z]' '[a-z]' > ${RHYMENOT}.lowercase && mv ${RHYMENOT}.lowercase ${RHYMENOT}
+
+rhyme:
+  stage: phonetic
+  script:
+    - cat phonetic-lut.txt | while read original replacement rest ; do sed -i "s/${original}/${replacement}/" ${RHYME} ; done
+
+rhymenot:
+  stage: photnetic
+  script:
+  - cat phonetic-lut.txt | while read original replacement rest ; do sed -i "s/${original}/${replacement}/" ${RHYMENOT} ; done
+
+rhyme:
+  stage: prepare
+  script:
+    - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o .$ | xargs -L 2 > analysis1.txt
+    - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ..$ | xargs -L 2 > analysis2.txt
+    - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysis3.txt
+    - cat ${RHYME} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysis4.txt
+
+rhymenot:
+  stage: prepare
+  script:
+    - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o .$ | xargs -L 2 > analysisnot1.txt
+    - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ..$ | xargs -L 2 > analysisnot2.txt
+    - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ...$ | xargs -L 2 > analysisnot3.txt
+    - cat ${RHYMENOT} | awk '{ print $NF }' | sed 's/,//;s/\.//g;s/$^//' | grep -o ....$ | xargs -L 2 > analysisnot4.txt
+
+rhyme:
+  stage: test
+  script:
+    - bats tests/
