@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/robertdebock/rhyme.svg?branch=master)](https://travis-ci.org/robertdebock/rhyme)
+
 # rhyme
 A repository to test if text is in a rhyming form.
 
