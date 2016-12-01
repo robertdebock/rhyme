@@ -13,6 +13,7 @@ before_install:
 install:
   # Save an original for spell checking.
   - cp ${RHYME} ${RHYME}.original
+  - cp ${RHYMENOT} ${RHYMENOT}.original
   # Lowercase everything.
   - cat ${RHYME} | tr '[A-Z]' '[a-z]' > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
   - cat ${RHYMENOT} | tr '[A-Z]' '[a-z]' > ${RHYMENOT}.lowercase && mv ${RHYMENOT}.lowercase ${RHYMENOT}
