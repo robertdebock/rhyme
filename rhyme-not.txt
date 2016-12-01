@@ -1,2 +1,5 @@
-This text does not rhyme,
-in any way.
+Dit rijmt niet,
+maar het klopt wel.
+
+Er zit ook een tykvoud in,
+Om de spelchecker te testen.
