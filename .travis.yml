@@ -8,9 +8,11 @@ env:
 before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
   - sudo apt-get update -qq
-  - sudo apt-get install -qq bats
+  - sudo apt-get install -qq bats aspell aspell-nl
 
 install:
+  # Save an original for spell checking.
+  - cp ${RHYME} ${RHYME}.original
   # Lowercase everything.
   - cat ${RHYME} | tr '[A-Z]' '[a-z]' > ${RHYME}.lowercase && mv ${RHYME}.lowercase ${RHYME}
   - cat ${RHYMENOT} | tr '[A-Z]' '[a-z]' > ${RHYMENOT}.lowercase && mv ${RHYMENOT}.lowercase ${RHYMENOT}
