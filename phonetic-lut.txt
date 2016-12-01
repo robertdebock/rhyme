@@ -3,6 +3,7 @@
 # It seems most logica to replace the original by a more simple version, like:
 # "ck -> k" and "kk -> k".
 oe oo
+oa oo
 ck k
 up ub
 bb b
