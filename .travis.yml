@@ -8,7 +8,7 @@ env:
 before_install:
   - sudo add-apt-repository ppa:duggan/bats --yes
   - sudo apt-get update -qq
-  - sudo apt-get install -qq bats aspell aspell-nl
+  - sudo apt-get install -qq bats
 
 install:
   # Save an original for spell checking.
